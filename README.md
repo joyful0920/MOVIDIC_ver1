@@ -280,7 +280,7 @@
   ```
 
 * `views.search`<br>
-  `search/` `ur`로 함께 들어온 `title` 파라미터로 특정한 영화들의 `QuerySet`을 반환하여 페이지에 렌더링합니다.
+  `search/` `url`로 함께 들어온 `title` 파라미터로 특정한 영화들의 `QuerySet`을 반환하여 페이지에 렌더링합니다.
 
   ```python
   def search(request):
