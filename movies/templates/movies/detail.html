@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <!-- Navbar -->
+  <nav class="navbar navbar-light navbar-expand-md bg-light">
+    <div class="container-fluid font-monospace">
+      <a class="navbar-brand" href="{% url 'movies:index' %}">MOVIDIC</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'movies:index' %}">Index</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'movies:new' %}">New</a>
+          </li>
+        </ul>
+      </div>
+      <form class="d-flex" role="search" action="{% url 'movies:search' %}" method="GET">
+        <input class="form-control me-2" type="search" name="title" placeholder="Movie Title" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="text-center py-5 mb-4" style="background-image: url('https://images.unsplash.com/photo-1592780828756-c418d71faa1f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80')">
+    <div class="container">
+      <h1 class="fw-light text-start font-monospace text-light">DETAIL</h1>
+    </div>
+  </header>
+
+  <!-- Section-->
+  <div class="container">
+    <section>
+      <div class="row g-3">
+        <div class="row">
+          <div class="col-md-4">
+            <img class="img-fluid" src="{{ movie.poster_url }}" alt="poster">
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <label for="title" class="form-label font-monospace text-secondary">TITLE</label>
+              <p>{{ movie.title }}</p>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <label for="audience" class="form-label font-monospace text-secondary">AUDIENCE</label>
+                <p>{{ movie.audience }}</p>
+              </div>
+              <div class="col-md-3">
+                <label for="release_date" class="form-label font-monospace text-secondary">RELEASE_DATE</label>
+                <p>{{movie.release_date|date:'Y-m-d'}}</p>
+              </div>
+              <div class="col-md-3">
+                <label for="genre" class="form-label font-monospace text-secondary">GENRE</label>
+                <p>{{ movie.genre }}</p>
+              </div>
+              <div class="col-md-3">
+                <label for="score" class="form-label font-monospace text-secondary">SCORE</label>
+                <p>{{ movie.score }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <label for="trailer_url" class="form-label font-monospace text-secondary">TRAILER_URL</label>
+              <p><a href="{{ movie.trailer_url }}">{{ movie.trailer_url }}</a></p>
+            </div>
+            <div class="row">
+              <label for="description" class="form-label font-monospace text-secondary">DESCRIPTION</label>
+              <p>{{ movie.description }}</p>
+            </div>
+            <div class="row">
+              <label for="review" class="form-label font-monospace text-secondary">REVIEW</label>
+              <p>{{ movie.review }}</p>
+            </div>
+            <a href="{% url 'movies:delete' movie.pk %}" class="btn btn-danger" role="button">Delete</a>
+            <a href="{% url 'movies:edit' movie.pk %}" class="btn btn-primary" role="button">Edit</a>
+            <a href="{% url 'movies:index' %}" class="btn btn-secondary" role="button">Back</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+{% endblock content %}

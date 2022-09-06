@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <!-- Navbar -->
+  <nav class="navbar navbar-light navbar-expand-md bg-light fixed-top">
+    <div class="container-fluid font-monospace">
+      <a class="navbar-brand" href="{% url 'movies:index' %}">MOVIDIC</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'movies:index' %}">Index</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'movies:new' %}">New</a>
+          </li>
+        </ul>
+      </div>
+      <form class="d-flex" role="search" action="{% url 'movies:search' %}" method="GET">
+        <input class="form-control me-2" type="search" name="title" placeholder="Movie Title" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2056&q=80')">
+          <div class="carousel-caption text-end text-dark">
+            <h1 class="font-monospace">MOVIDIC</h1>
+            <p class="fw-bold">당신의 인생 영화 사전을 만들어 보세요</p>
+          </div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1592780828756-c418d71faa1f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80')"> 
+          <div class="carousel-caption text-start">
+            <h1 class="font-monospace">MOVIDIC</h1>
+            <p class="fw-bold">나만의 영화 사전 MOVIDIC</p>
+          </div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1616530940355-351fabd9524b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1935&q=80')">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </header>
+
+  <h1 class="display-8 my-5 text-center fw-bold">당신의 영화 사전</h1>
+
+  <!-- Section-->
+  <div class="container">
+    <section>
+      <div class="row">
+        {% for movie in movies %}
+          <div class="col-12 col-md-6 col-lg-2 mb-2">
+            <div class="card h-100">
+              <a href="{% url 'movies:detail' movie.pk %}"><img class="card-img-top" src="{{ movie.poster_url}}" alt=""></a>
+              <div class="card-body">
+                <h6 class="card-title fw-bold">{{ movie.title }}</h6>
+                <p class="card-text">{{ movie.score }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+{% endblock content %}

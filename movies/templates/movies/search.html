@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <!-- Navbar -->
+  <nav class="navbar navbar-light navbar-expand-md bg-light fixed-top">
+    <div class="container-fluid font-monospace">
+      <a class="navbar-brand" href="{% url 'movies:index' %}">MOVIDIC</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'movies:index' %}">Index</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'movies:new' %}">New</a>
+          </li>
+        </ul>
+      </div>
+      <form class="d-flex" role="search" action="{% url 'movies:search' %}" method="GET">
+        <input class="form-control me-2" type="search" name="title" placeholder="Movie Title" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <h1 class="display-8 py-5 my-5 text-center fw-bold">검색 결과</h1>
+
+  <!-- Section-->
+  <div class="container">
+    <section>
+      <div class="row">
+        {% for movie in movies %}
+          <div class="col-12 col-md-6 col-lg-2 mb-2">
+            <div class="card h-100">
+              <a href="{% url 'movies:detail' movie.pk %}"><img class="card-img-top" src="{{ movie.poster_url}}" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title fw-bold">{{ movie.title }}</h4>
+                <p class="card-text">{{ movie.score }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+{% endblock content %}
