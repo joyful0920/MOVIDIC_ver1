@@ -177,13 +177,15 @@
 <br>
 
 * `views.detail`<br>
-  `form`을 통해 받아 온 영화 제목 키워드로, 매칭이 되는 데이터들만 필터링하여 새로운 `QuerySet`으로 반환하여 페이지를 렌더링합니다.
+  요청과 함께 넘겨 받은 `pk`로 영화를 특정하여, 해당 데이터들로 페이지를 렌더링합니다.
 
   ```python
-  def delete(request, pk):
+  def detail(request, pk):
     movie = Movie.objects.get(pk=pk)
-    movie.delete()
-    return redirect('movies:index')
+    context = {
+        'movie': movie,
+    }
+    return render(request, 'movies/detail.html', context)
   ```
 
 <br>
@@ -239,12 +241,10 @@
   `detail` 페이지에서 삭제 요청을 통해 함께 받아온 데이터의 `pk`로 해당 영화 정보를 삭제합니다.
 
   ```python
-  def detail(request, pk):
+  def delete(request, pk):
     movie = Movie.objects.get(pk=pk)
-    context = {
-        'movie': movie,
-    }
-    return render(request, 'movies/detail.html', context)
+    movie.delete()
+    return redirect('movies:index')
   ```
 
 <br>
